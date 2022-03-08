@@ -24,11 +24,22 @@ let svg2 = d3.select("body")
 
 // # added code
 //TODO: Initialize brush for Scatterplot2 and points. We will need these to be global.
-
+// # added code
+let brush2;
+let myCircles2;
+// # added code
 //TODO: append svg object to the body of the page to house bar chart 
-
+// # added code
+let svg3 = d3.select("body")
+              .append("svg")
+              .attr("width", width - margin.left - margin.right)
+              .attr("height", height - margin.top - margin.bottom)
+              .attr("viewBox", [0, 0, width, height]); 
+// # added code
 //TODO: Initialize bars. We will need these to be global. 
+// # added code
 
+// # added code
 
 // Define color scale
 const color = d3.scaleOrdinal()
@@ -104,9 +115,17 @@ d3.csv("data/iris.csv").then((data) => {
                               .style("opacity", 0.5);
 
     //TODO: Define a brush (call it brush1)
-
+    // # added code
+    let brush1;
+    // # added code
     //TODO: Add brush1 to svg1
-    
+    // # added code
+    svg1
+      .call( d3.brush()
+        .extent( [ [0, 0], [300, 400]])
+        .on("start end", updateChart1)
+      )
+    // # added code
   }
 
   //TODO: Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
@@ -132,7 +151,9 @@ d3.csv("data/iris.csv").then((data) => {
   function updateChart1(brushEvent) {
       
       //TODO: Find coordinates of brushed region 
-  
+      // # added code
+      extent = d3.event.selection
+      // # added code
       //TODO: Give bold outline to all points within the brush region in Scatterplot1
 
       //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
@@ -143,9 +164,13 @@ d3.csv("data/iris.csv").then((data) => {
   function updateChart2(brushEvent) {
     
     //TODO: Find coordinates of brushed region 
-
+    // # added code
+    extent = d3.event.selection
+    // # added code
     //TODO: Start an empty set that you can store names of selected species in 
-  
+    // # added code
+    let set1 = Set()
+    // # added code
     //TODO: Give bold outline to all points within the brush region in Scatterplot2 & collected names of brushed species
 
     //TODO: Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot2

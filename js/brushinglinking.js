@@ -194,8 +194,46 @@ d3.csv("data/iris.csv").then((data) => {
 
   //TODO: Barchart with counts of different species
   {
-    // Bar chart code here 
+    // "setosa", "versicolor", "virginica"
+    //"#FF7F50", "#21908dff", "#fde725ff"
+    const barData = [{"y": 50, "species": "virginica", "color": "#fde725ff" }, 
+                {"y": 50, "species": "versicolor", "color": "#21908dff"},
+                {"y": 50, "species": "setosa", "color": "#FF7F50"}]
+
+    let maxY3 = d3.max(barData, function(d) {return d.y; });
+
+    let y3 = d3.scaleLinear()
+                .domain([0,maxY3])
+                .range([height - margin.bottom, margin.top]);
+
+    let x3 = d3.scaleBand()
+            .domain(d3.range(barData.length))
+            .range([margin.left, width-margin.right]);
+
+    svg3.append("g")
+        .attr("transform", `translate(${margin.left}, 0)`) 
+        .call(d3.axisLeft(y3)) 
+        .attr("font-size", '20px'); 
+
+     // adding the x values to the plot
+    svg3.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`) 
+        .call(d3.axisBottom(x3)
+                .tickFormat((i) => data[i].species)) 
+        .attr("font-size", '20px'); 
+
+    svg3.selectAll(".bar") 
+        .data(barData) 
+        .enter()  
+        .append("rect") 
+          .attr("class", "bar") 
+          .attr("x", (d,i) => x3(i)) 
+          .attr("y", (d) => { return d.y; } )      
+          .attr("height", (d) => (height - margin.bottom) - y3(d.y)) 
+          .attr("width", x3.bandwidth())
+          .attr("fill", (d) =>{ return d.color; });
   }
+
 
   //Brushing Code---------------------------------------------------------------------------------------------
     

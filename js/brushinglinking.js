@@ -283,18 +283,12 @@ d3.csv("data/iris.csv").then((data) => {
       // # added code
       //TODO: Give bold outline to all points within the brush region in Scatterplot1
       svg1.selectAll("circle")
-            .classed("brushed_circle", function(d) {
-              if (isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length))) {console.log('h')}
-              isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length))
-            });
-
-
+            .classed("brushed_circle", function(d) {return isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length));})
+    
       //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
       svg2.selectAll("circle")
-            .classed("brushed_circle", function(d) {
-              if (isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length))) {console.log('h')}
-              isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length))
-            });
+            .classed("brushed_circle", function(d) {return isBrushed(extent, x1(d.Sepal_Length), y1(d.Petal_Length));})
+    
   }
 
   // Call when Scatterplot2 is brushed 
@@ -332,17 +326,10 @@ d3.csv("data/iris.csv").then((data) => {
 
     //TODO: Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot2
     svg2.selectAll("circle")
-          .classed("brushed_circle", function(d) {
-            if (isBrushed(extent, x2(d.Sepal_Width), y2(d.Petal_Width))) {
-              
-              console.log(set1)
-              set1.add(d.Species)
-              console.log(set1)
-            }
-            isBrushed(extent, x2(d.Sepal_Width), y2(d.Petal_Width))
-          });
+          .classed("brushed_circle", function(d) { return isBrushed(extent, x2(d.Sepal_Width), y2(d.Petal_Width));});
     //TODO: Give bold outline to all bars in bar chart with corresponding to species selected by Scatterplot2 brush
-    // svg3.selectAll("")
+    svg3.selectAll("bar")
+          .classed("brushed_circle", function (d) {return set1.has(d.Species)})
 
 
   }

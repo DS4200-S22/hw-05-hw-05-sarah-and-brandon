@@ -2,3 +2,9 @@
 body {
   font-family: Arial;
 }
+
+.brushed_circle {
+  stroke: black;
+  stroke-width: 2;
+  fill:  darkseagreen;
+}
